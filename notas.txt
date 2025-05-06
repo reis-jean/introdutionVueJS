@@ -1,0 +1,15 @@
+Usar com ligação de eventos (event binding) ou ligação de dados (data binding)
+Ligação de dados: o método é executado a cada ciclo de "re-renderização" do componente
+Usar para eventos ou dados que realmente precisam ser reavaliados o tempo todo
+
+Computed
+Usar com ligação de dados (data binding)
+Propriedades computadas são reavaliadas apenas se um dos seus "valores usados" mudar
+Usar para dados que dependem de outros dados
+
+Watch
+Não é usado diretamente no template
+Permite que você execute qualquer código em reação a alguma alteração de dado (por exemplo, enviar uma requisição HTTP,
+etc.)
+Usar para qualquer atualização que não envolva dados que você queira fazer -->
+
