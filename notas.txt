@@ -13,3 +13,23 @@ Permite que você execute qualquer código em reação a alguma alteração de d
 etc.)
 Usar para qualquer atualização que não envolva dados que você queira fazer -->
 
+## Resumo
+
+### DOM & Templates (DOM e Modelos)
+- Vue.js permite definir o objetivo em vez dos passos (abordagem declarativa)
+- *Conexão* do Vue ao HTML através do "mount" (montagem):  
+  O Vue então renderiza o DOM real baseado no template conectado
+
+### Reatividade
+- Vue atualiza automaticamente o DOM real quando os dados vinculados mudam
+- *Propriedades computadas* e *observadores (watchers)* permitem reagir a mudanças nos dados
+
+---
+
+## Vinculação de Dados e Eventos
+- Os dados podem ser vinculados através de interpolação {{ }} ou da diretiva v-bind (":")
+- Os eventos são ouvidos através da diretiva v-on ("@")
+
+### Estilização
+- Vue suporta vinculação dinâmica de classes CSS e estilos inline
+- Oferece múltiplas sintaxes especiais (baseadas em objeto ou array) para vinculação eficiente
