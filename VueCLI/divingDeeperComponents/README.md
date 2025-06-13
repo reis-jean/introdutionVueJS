@@ -2,7 +2,7 @@
 
 ##pt-br
 
-### Mergulho Profundo em Componentes
+### Aprofundando em Componentes
 
 *Registro de Componentes e Estilos*  
 Componentes podem ser registrados globalmente ou localmente: Prefira registro local.  
@@ -56,7 +56,7 @@ Estes conceitos são fundamentais para desenvolvimento avançado com Vue.js, per
 
 ## en
 
-# *Vue Components Deep Dive - Explanation in English*  
+# *Vue Components Deep Dive *  
 
 ## *1. Component Registration & Styles*  
 ### *Registration:*  
