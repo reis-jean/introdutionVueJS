@@ -1,9 +1,7 @@
 <template>
-    <div>
-        <h2>Manage Goals</h2>
-        <input type="text" ref="goal"/>
-        <button @click="setGoal">Set Goal</button>
-    </div>
+    <h2>Manage Goals</h2>
+    <input type="text" ref="goal"/>
+    <button @click="setGoal">Set Goal</button>
     <!-- teleport importa o component para a tag html especifica -->
     <teleport  to="body">
         <errorAlert v-if="inputIsInvalid">
