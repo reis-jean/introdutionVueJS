@@ -34,7 +34,4 @@ Usar para qualquer atualização que não envolva dados que você queira fazer -
 - Vue suporta vinculação dinâmica de classes CSS e estilos inline
 - Oferece múltiplas sintaxes especiais (baseadas em objeto ou array) para vinculação eficiente
 
-
-
-
 por tras dos panos vue usa proxy para ser reativo. 
