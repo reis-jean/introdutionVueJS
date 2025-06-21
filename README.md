@@ -1,5 +1,3 @@
-# Criar README.md para projetos Vue.js
-readme_content = """# 🚀 Vue.js Learning Projects / Projetos de Aprendizado Vue.js
 
 ## 🇺🇸 English
 
@@ -150,7 +148,3 @@ Vue.js é um framework JavaScript progressivo para construir interfaces de usuá
    - Testes (Jest, Vue Test Utils)
    - Integração com TypeScript
    - Build e deploy
-
----
-
-## 📁 Project Structure / Estrutura dos Projetos
