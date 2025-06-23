@@ -1,8 +1,16 @@
 <template>
-    <button>
-
+    <button :type="type" :class="mode">
+        <slot></slot>
     </button>
 </template>
+
+<script>
+
+export default{
+    props: ['type', 'mode', 'caption']
+}
+
+</script>
 
 <style scoped>
 button {
