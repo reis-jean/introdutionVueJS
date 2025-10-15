@@ -38,42 +38,19 @@
       </form>
     </base-card>
 
-    <base-card>
-      <h2>Submitted Experiences</h2>
-      <div>
-        <base-button @click="loadExperiences" :disabled="isLoadingList">
-          Load Submitted Experiences
-        </base-button>
-      </div>
-      
-      <p v-if="isLoadingList" class="loading">Loading experiences...</p>
-      <p v-if="loadError" class="error">{{ loadError }}</p>
-      <p v-if="surveys.length === 0 && !isLoadingList && !loadError" class="info">
-        No experiences submitted yet.
-      </p>
-
-      <ul v-if="surveys.length > 0">
-        <li v-for="survey in surveys" :key="survey.id" class="survey-item">
-          <div class="survey-content">
-            <h3>{{ survey.userName }}</h3>
-            <p class="rating" :class="'rating-' + survey.rating">
-              Rating: <strong>{{ survey.rating }}</strong>
-            </p>
-            <p class="timestamp" v-if="survey.timestamp">
-              {{ formatDate(survey.timestamp) }}
-            </p>
-          </div>
-        </li>
-      </ul>
-    </base-card>
+    
   </section>
 </template>
 
 <script>
 import { db } from '@/firebase/config';
-import { collection, addDoc, getDocs, query, orderBy } from 'firebase/firestore';
+import { collection, addDoc } from 'firebase/firestore';
+import UserExperiences from './UserExperiences.vue';
 
 export default {
+  components: {
+    UserExperiences,
+  },
   data() {
     return {
       enteredName: '',
@@ -82,15 +59,9 @@ export default {
       isLoading: false,
       error: null,
       success: false,
-      surveys: [],
-      isLoadingList: false,
-      loadError: null,
     };
   },
   emits: ['survey-submit'],
-  mounted() {
-    this.loadExperiences();
-  },
   methods: {
     async submitSurvey() {
       if (this.enteredName === '' || !this.chosenRating) {
@@ -117,7 +88,7 @@ export default {
         this.enteredName = '';
         this.chosenRating = null;
         
-        await this.loadExperiences();
+        await this.$refs.experiences.loadExperiences();
         
         setTimeout(() => {
           this.success = false;
@@ -129,41 +100,6 @@ export default {
         this.isLoading = false;
       }
     },
-
-    async loadExperiences() {
-      this.isLoadingList = true;
-      this.loadError = null;
-
-      try {
-        const q = query(collection(db, 'surveys'), orderBy('timestamp', 'desc'));
-        const querySnapshot = await getDocs(q);
-        
-        this.surveys = [];
-        querySnapshot.forEach((doc) => {
-          this.surveys.push({
-            id: doc.id,
-            ...doc.data()
-          });
-        });
-      } catch (err) {
-        console.error('Error loading surveys:', err);
-        this.loadError = 'Failed to load experiences. Please try again.';
-      } finally {
-        this.isLoadingList = false;
-      }
-    },
-
-    formatDate(timestamp) {
-      if (!timestamp) return '';
-      const date = new Date(timestamp);
-      return date.toLocaleString('pt-BR', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
-      });
-    }
   },
 };
 </script>
@@ -197,67 +133,8 @@ input[type='text'] {
   margin: 1rem 0;
 }
 
-.info {
-  color: #666;
-  font-style: italic;
-  margin: 1rem 0;
-}
-
 button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 1.5rem 0 0 0;
-}
-
-.survey-item {
-  background-color: #f5f5f5;
-  border-left: 4px solid #3d008d;
-  padding: 1rem;
-  margin: 1rem 0;
-  border-radius: 4px;
-  transition: transform 0.2s;
-}
-
-.survey-item:hover {
-  transform: translateX(5px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.survey-content h3 {
-  margin: 0 0 0.5rem 0;
-  color: #3d008d;
-  font-size: 1.2rem;
-}
-
-.rating {
-  margin: 0.5rem 0;
-  font-size: 1rem;
-}
-
-.rating strong {
-  text-transform: capitalize;
-}
-
-.rating-poor {
-  color: #d60000;
-}
-
-.rating-average {
-  color: #ff8800;
-}
-
-.rating-great {
-  color: #00d68f;
-}
-
-.timestamp {
-  font-size: 0.85rem;
-  color: #666;
-  margin: 0.5rem 0 0 0;
 }
 </style>
