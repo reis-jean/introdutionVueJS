@@ -1,12 +1,33 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import TeamsList from '../components/teams/TeamsList.vue'
+import UsersList from '../components/users/UsersList.vue'
+import TeamMembers from '@/components/teams/TeamMembers.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
+      path: '/teams',
+      name: 'teams',
+      component: TeamsList,
+    },
+    {
+      path: '/users',
+      name: 'users',
+      component: UsersList,
+    },
+    {
+      path: '/home',
       name: 'home',
+      component: HomeView,
+    },
+    {
+      path: '/teams/:teamId',      
+      component: TeamMembers,
+    },
+    {
+      path: '/teams/new',      
       component: HomeView,
     },
     {
@@ -18,6 +39,7 @@ const router = createRouter({
       component: () => import('../views/AboutView.vue'),
     },
   ],
+
 })
 
 export default router
