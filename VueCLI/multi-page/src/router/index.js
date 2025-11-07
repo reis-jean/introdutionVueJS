@@ -4,6 +4,8 @@ import TeamsList from '../components/teams/TeamsList.vue'
 import UsersList from '../components/users/UsersList.vue'
 import TeamMembers from '@/components/teams/TeamMembers.vue'
 import NotFound from '@/components/nav/NotFound.vue'
+import TeamFooter from '@/components/teams/TeamFooter.vue'
+import UsersFooter from '@/components/users/UsersFooter.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -15,23 +17,33 @@ const router = createRouter({
     {
       path: '/teams',
       name: 'teams',
-      component: TeamsList,
-      alias: '/'
+      components:{
+        default: TeamsList,
+        footer: TeamFooter
+      },
+      alias: '/',
+      children: [
+        {
+          name: 'team-members',
+          path: ':teamId',
+          component: TeamMembers,
+          props: true
+        }
+      ]
+    
     },
     {
       path: '/users',
       name: 'users',
-      component: UsersList,
+      components:{
+        default: UsersList,
+        footer: UsersFooter
+      },
     },
     {
       path: '/home',
       name: 'home',
       component: HomeView,
-    },
-    {
-      path: '/teams/:teamId',      
-      component: TeamMembers,
-      props: true
     },
     {
       path: '/teams/new',      
@@ -47,6 +59,13 @@ const router = createRouter({
       component: () => import('../views/AboutView.vue'),
     },
   ],
+  scrollBehavior(to, from, savedPosition){
+    if (savedPosition) {
+      return savedPosition;
+    } else {
+      return { top: 0 };
+    }
+  }
 
 })
 
