@@ -32,6 +32,18 @@ export default {
     this.loadTeamMembers(this.teamId);
     console.log(this.$route.query);
   },
+  beforeRouteUpdate(to, from, next){
+    console.log('Navigation to:', to.fullPath);
+    console.log('Navigation from:', from.fullPath);
+    next();
+    // Ele é executado dentro do componente, roda quando o componente é atualizado
+  },
+  beforeRouteLeave(to, from, next){
+    console.log('Navigation to:', to.fullPath);
+    console.log('Navigation from:', from.fullPath);
+    next();
+    // Ele é executado dentro do componente, roda quando o componente é deixado
+  },
   methods:{
     loadTeamMembers(teamId){
       
