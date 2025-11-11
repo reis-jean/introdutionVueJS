@@ -1,7 +1,13 @@
 <template>
   <div class="container">
-    <div class="block"></div>
-    <button>Animate</button>
+    <div class="block" :class="{ animated: animatedBlock }"></div>
+    <button @click="animateBlock">Animate</button>
+  </div>
+  <div class="container">
+    <transition>
+      <p v-if="paraIsVisible">This is a test paragraph!</p>
+    </transition>
+    <button @click="toggleParagraph">Toggle paragraph</button>
   </div>
   <base-modal @close="hideDialog" v-if="dialogIsVisible">
     <p>This is a test dialog!</p>
@@ -15,7 +21,11 @@
 <script>
 export default {
   data() {
-    return { dialogIsVisible: false };
+    return {
+      dialogIsVisible: false,
+      animatedBlock: false,
+      paraIsVisible: false,
+    };
   },
   methods: {
     showDialog() {
@@ -23,6 +33,12 @@ export default {
     },
     hideDialog() {
       this.dialogIsVisible = false;
+    },
+    toggleParagraph() {
+      this.paraIsVisible = !this.paraIsVisible;
+    },
+    animateBlock() {
+      this.animatedBlock = true;
     },
   },
 };
@@ -57,6 +73,7 @@ button:active {
   height: 8rem;
   background-color: #290033;
   margin-bottom: 2rem;
+  /* transition: transform 0.3s ease-in-out; */
 }
 .container {
   max-width: 40rem;
@@ -69,4 +86,55 @@ button:active {
   border: 2px solid #ccc;
   border-radius: 12px;
 }
+.animate {
+  animation: slide-left 0.5s ease-in-out;
+}
+.animated {
+  transform: translateX(-150px);
+  animation: slide-fade 0.5s ease-in-out forwards;
+}
+
+.v-enter-from{
+  opacity: 0;
+  transform: translateY(-30px);
+}
+
+.v-enter-active{
+  transition: all 0.2s ease-out;
+}
+
+.v-enter-to{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.v-leave-from{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.v-leave-active{
+  transition: all 0.2s ease-in;
+}
+
+.v-leave-to{
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+@keyframes slide-fade {
+  0% {
+    transform: translateX(0) scale(1);
+
+  }
+
+  70% {
+    transform: translateX(-120px) scale(1.1);
+  }
+
+  100% {
+    transform: translateX(-150px) scale(1);
+  }
+}
+
 </style>
